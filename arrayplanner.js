@@ -105,24 +105,24 @@ function addMisc () {
 function combinedOther() {
     totalOtherExpenses = miscExpense + entertainmentExpense;
     console.log("Other Expenses " + totalOtherExpenses);
-    updateSummary();
     total();
+    updateSummary();
 }
 // l i v i n g
 
 function livingExpenses () {
     totalLivingExpenses = transExpense + grocsExpense;
     console.log("Living Expenses " + totalLivingExpenses);
-    updateSummary();
     total();
+    updateSummary();
 }
 // h o u s i n g
 function housingExpenses () {
     totalHousingExpenses = rentExpense + utilitiesExpense;
         console.log("Housing expense " + totalHousingExpenses)
-
-        updateSummary();
         total();
+        updateSummary();
+        
 }
 
 // a l l 
