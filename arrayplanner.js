@@ -8,8 +8,11 @@ let transExpense = 0;
 let entertainmentExpense = 0;
 let miscExpense = 0;
 let savingsTarget = 0;
-let totalHousingExpense=0;
+let remainingBudget = 0;
+let totalExpenses = 0;
+let totalHousingExpenses = 0;
 let totalLivingExpenses = 0;
+let totalOtherExpenses = 0;
 
 // s a l a r y
 
@@ -50,16 +53,6 @@ function addUtilities() {
     }
     housingExpenses();
 }
-
-// h o u s i n g
-
-function housingExpenses () {
-    totalHousingExpense = rentExpense + utilitiesExpense;
-        console.log("Housing expense" + totalHousingExpense)
-
-        updateSummary();
-}
-
 // g r o c e r i e s
 
 function addGroceries () {
@@ -86,18 +79,77 @@ function addTransport () {
     livingExpenses();
 }
 
+// e n t e r t a i n m e n t 
+function addEntertainment () {
+    let input = document.getElementById('entertainmentInput');
+    let amount = Number(input.value);
+    console.log(amount);
+    if (amount > 0) {
+        entertainmentExpense = amount;
+        input.value = '';
+    }
+}
+
+// m i s c
+function addMisc () {
+    let input = document.getElementById('miscInput');
+    let amount = Number(input.value);
+    console.log(amount);
+    if(amount > 0) {
+        miscExpense = amount;
+        input.value = '';
+    }
+    combinedOther();
+}
+// o t h e r 
+function combinedOther() {
+    totalOtherExpenses = miscExpense + entertainmentExpense;
+    console.log("Other Expenses " + totalOtherExpenses);
+    updateSummary();
+    total();
+}
 // l i v i n g
 
 function livingExpenses () {
     totalLivingExpenses = transExpense + grocsExpense;
     console.log("Living Expenses " + totalLivingExpenses);
     updateSummary();
+    total();
+}
+// h o u s i n g
+function housingExpenses () {
+    totalHousingExpenses = rentExpense + utilitiesExpense;
+        console.log("Housing expense " + totalHousingExpenses)
 
+        updateSummary();
+        total();
+}
+
+// a l l 
+function total () {
+    totalExpenses = totalHousingExpenses + totalLivingExpenses + totalOtherExpenses;
+
+    remainingBudget = salaryInput - totalExpenses;
+}
+
+// s a v i n g s  g o a l
+
+function setSavingsGoal () {
+    let input = document.getElementById('savingsInput');
+    let savings = Number(input.value);
+    console.log(savings);
+    if (savings > 0) {
+        savingsTarget = savings;
+    }
+    updateSummary();
 }
 
 // u p d a t e
 
 function updateSummary() {
+
+    document.getElementById('savingsGoal').innerHTML = savingsTarget;
+
     document.getElementById('totalIncome').innerHTML = salaryInput;
     document.getElementById('yearlyIncome').innerHTML = salaryInput * 12;
 
@@ -105,11 +157,14 @@ function updateSummary() {
     document.getElementById('utilitiesExpense').innerHTML = utilitiesExpense;
     document.getElementById('uInput').innerHTML = utilitiesExpense;
 
-    document.getElementById('housingExpenses').innerHTML = totalHousingExpense;
+    document.getElementById('housingExpenses').innerHTML = totalHousingExpenses;
     document.getElementById('livingExpenses').innerHTML = totalLivingExpenses;
-}
+    document.getElementById('otherExpenses').innerHTML = totalOtherExpenses;
 
+    document.getElementById('totalExpenses').innerHTML = totalExpenses;
+    document.getElementById('yearlyExpenses').innerHTML = totalExpenses * 12;
 
-function setSavingsGoal(){
-
+    document.getElementById('remainingBudget').innerHTML = remainingBudget;
+    document.getElementById('actualSavings').innerHTML = remainingBudget;
+    document.getElementById('yearlySavings').innerHTML = remainingBudget * 12;
 }
